@@ -35,6 +35,8 @@ stdin.on( 'data', function( key ){
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       console.log('Theres a swipe Error!');
       console.log(swipeData)
+      const spawn = require("child_process").spawn;
+      const pythonProcess = spawn('python',["./light.py"]);
 
       //Post Request bad
       request.post('http://localhost/swipes', {
