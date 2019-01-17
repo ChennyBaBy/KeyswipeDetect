@@ -37,8 +37,8 @@ stdin.on( 'data', function( key ){
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       console.log('Theres a swipe Error!');
       console.log(swipeData)
-      const spawn = require("child_process").spawn;
-      const pythonProcess = spawn('python',["./light.py"]);
+      // const spawn = require("child_process").spawn;
+      // const pythonProcess = spawn('python',["./light.py"]);
 
       //Post Request bad
       request.post('http://localhost/swipes', {
@@ -76,9 +76,11 @@ stdin.on( 'data', function( key ){
           // })
 
           var data = {
-            "employee_id": employee_id,
+            "employee_id": swipeData,
             "datetime": SwipeTimeMillisecond
           };
+
+          console.log('here???');
           client.post('swipes/', data, function(err, res, body) {
             console.log(res);
             console.log(err);
