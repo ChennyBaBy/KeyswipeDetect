@@ -1,7 +1,8 @@
 var stdin = process.stdin;
 const sqlite3 = require('sqlite3').verbose();
-// const request = require('request');
-var request = require('request');
+request = require('request-json');
+var client = request.createClient('http://localhost/');
+
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -68,11 +69,23 @@ stdin.on( 'data', function( key ){
           }
 
           //Post Request Good
-          request.post('http://localhost/swipes', {
-            successfulSwipe: true,
-            employeeID: employee_id,
-            swipeTimeMillisecond: SwipeTimeMillisecond
-          })
+          // request.post('http://localhost/swipes', {
+          //   successfulSwipe: true,
+          //   employeeID: employee_id,
+          //   swipeTimeMillisecond: SwipeTimeMillisecond
+          // })
+
+          var data = {
+            "employee_id": employee_id,
+            "datetime": SwipeTimeMillisecond
+          };
+          client.post('swipes/', data, function(err, res, body) {
+            console.log(res);
+            console.log(err);
+            return console.log(res.statusCode);
+          });
+
+
         })
       });
 
