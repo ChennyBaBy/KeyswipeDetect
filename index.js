@@ -1,4 +1,5 @@
 var stdin = process.stdin;
+const sqlite3 = require('sqlite3').verbose();
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -23,6 +24,21 @@ stdin.on( 'data', function( key ){
     // console.log(employeeID + ' has swiped at ' + new Date() + '!');
 
     const fs = require('fs');
+
+    let db = new sqlite3.Database('./swipe_db.db', (err) => {
+      if (err) {
+        return console.error(err.message);
+      }
+
+      console.log('Connected to the in-memory SQlite database.');
+
+      db.run(`INSERT INTO swipes(employee_id,datetime) VALUES(?,?)`, [swipeData,new Date()], function(err) {
+        db.close();
+        if (err) {
+          return console.log(err.message);
+        }
+      })
+    });
 
     fs.appendFile('./swipes.txt', `${swipeData},${new Date()}\n`, function (err) {
       if (err) throw err;
