@@ -11,6 +11,7 @@
   "dependencies": {
     "johnny-five": "^1.0.0",
     "request": "^2.88.0",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "raspi-io": "^6.2.0"
   }
 }
