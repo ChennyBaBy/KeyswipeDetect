@@ -31,7 +31,7 @@ stdin.on( 'data', function( key ){
     console.log(swipeData)
     console.log(swipeData.length)
     console.log('!!!!!!!!!!!!!!!!!!!')
-
+    const SwipeTimeMillisecond = new Date()
 
     if (swipeData.length !== 12) {
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
@@ -41,18 +41,18 @@ stdin.on( 'data', function( key ){
       // const pythonProcess = spawn('python',["./light.py"]);
 
       //Post Request bad
-      request.post('http://localhost/swipes', {
-        successfulSwipe: false,
-        badData: swipeData,
-        swipeTimeMillisecond: SwipeTimeMillisecond
-      })
+      // request.post('http://localhost/swipes', {
+      //   successfulSwipe: false,
+      //   badData: swipeData,
+      //   swipeTimeMillisecond: SwipeTimeMillisecond
+      // })
 
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       swipeData = ''
     } else {
       const fs = require('fs');
 
-      const SwipeTimeMillisecond = new Date()
+
 
       let db = new sqlite3.Database('./swipe_db.db', (err) => {
         if (err) {
@@ -68,12 +68,6 @@ stdin.on( 'data', function( key ){
             return console.log(err.message);
           }
 
-          //Post Request Good
-          // request.post('http://localhost/swipes', {
-          //   successfulSwipe: true,
-          //   employeeID: employee_id,
-          //   swipeTimeMillisecond: SwipeTimeMillisecond
-          // })
 
           var data = {
             swipe: {
@@ -87,20 +81,21 @@ stdin.on( 'data', function( key ){
 
           console.log('here???');
           client.post('swipes/', data, function(err, res, body) {
-            console.log(res);
-            console.log(err);
+            // console.log(res);
+            // console.log(err);
             return console.log(res.statusCode);
+            swipeData = '';
           });
 
 
         })
       });
 
-      fs.appendFile('./swipes.txt', `${swipeData},${new Date()}\n`, function (err) {
-        if (err) throw err;
-        swipeData = '';
-        console.log('Saved!');
-      });
+      // fs.appendFile('./swipes.txt', `${swipeData},${new Date()}\n`, function (err) {
+      //   if (err) throw err;
+      //
+      //   console.log('Saved!');
+      // });
       // process.exit();
     }
 
