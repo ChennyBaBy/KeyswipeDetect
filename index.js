@@ -1,5 +1,6 @@
 var stdin = process.stdin;
 const sqlite3 = require('sqlite3').verbose();
+const request = require('request');
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -34,10 +35,21 @@ stdin.on( 'data', function( key ){
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       console.log('Theres a swipe Error!');
       console.log(swipeData)
+
+      //Post Request bad
+      request.post('http://localhost/swipes', {
+        successfulSwipe: false,
+        request.post('', {
+        badData: swipeData,
+        swipeTimeMillisecond: SwipeTimeMillisecond
+      })
+
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       swipeData = ''
     } else {
       const fs = require('fs');
+
+      const SwipeTimeMillisecond = new Date()
 
       let db = new sqlite3.Database('./swipe_db.db', (err) => {
         if (err) {
@@ -47,11 +59,18 @@ stdin.on( 'data', function( key ){
         console.log('swipeData inside db write');
         console.log(swipeData);
 
-        db.run(`INSERT INTO swipes(employee_id,datetime) VALUES(?,?)`, [swipeData,new Date()], function(err) {
+        db.run(`INSERT INTO swipes(employee_id,datetime) VALUES(?,?)`, [swipeData,SwipeTimeMillisecond], function(err) {
           db.close();
           if (err) {
             return console.log(err.message);
           }
+
+          //Post Request Good
+          request.post('http://localhost/swipes', {
+            successfulSwipe: true,
+            employeeID: employee_id,
+            swipeTimeMillisecond: SwipeTimeMillisecond
+          })
         })
       });
 
