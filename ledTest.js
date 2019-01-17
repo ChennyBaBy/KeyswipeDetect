@@ -1,11 +1,2 @@
-var five = require("johnny-five");
-var Raspi = require("raspi-io");
-var board = new five.Board({
-  io: new Raspi()
-});
-
-board.on("ready", function() {
-  // var led = new five.Led("P1-13");
-  var led = new five.Led(13);
-  led.blink();
-});
+const spawn = require("child_process").spawn;
+const pythonProcess = spawn('python',["./light.py"]);
