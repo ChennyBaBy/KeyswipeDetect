@@ -76,9 +76,14 @@ stdin.on( 'data', function( key ){
           // })
 
           var data = {
-            "employee_id": swipeData,
-            "datetime": SwipeTimeMillisecond
+            swipe: {
+              employee_id: swipeData,
+              datetime: SwipeTimeMillisecond
+            }
           };
+
+          console.log('DATA IS:')
+          console.log(data);
 
           console.log('here???');
           client.post('swipes/', data, function(err, res, body) {
