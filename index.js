@@ -1,6 +1,7 @@
 var stdin = process.stdin;
 const sqlite3 = require('sqlite3').verbose();
-const request = require('request');
+// const request = require('request');
+var request = require('request');
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -41,7 +42,6 @@ stdin.on( 'data', function( key ){
       //Post Request bad
       request.post('http://localhost/swipes', {
         successfulSwipe: false,
-        request.post('', {
         badData: swipeData,
         swipeTimeMillisecond: SwipeTimeMillisecond
       })
