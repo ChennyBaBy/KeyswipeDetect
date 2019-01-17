@@ -39,12 +39,12 @@ stdin.on( 'data', function( key ){
       const pythonProcess = spawn('python',["./light.py"]);
 
       //Post Request bad
-      // request.post('http://localhost/swipes', {
-      //   successfulSwipe: false,
-      //   request.post('', {
-      //   badData: swipeData,
-      //   swipeTimeMillisecond: SwipeTimeMillisecond
-      // })
+      request.post('http://localhost/swipes', {
+        successfulSwipe: false,
+        request.post('', {
+        badData: swipeData,
+        swipeTimeMillisecond: SwipeTimeMillisecond
+      })
 
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       swipeData = ''
@@ -68,11 +68,11 @@ stdin.on( 'data', function( key ){
           }
 
           //Post Request Good
-          // request.post('http://localhost/swipes', {
-          //   successfulSwipe: true,
-          //   employeeID: employee_id,
-          //   swipeTimeMillisecond: SwipeTimeMillisecond
-          // })
+          request.post('http://localhost/swipes', {
+            successfulSwipe: true,
+            employeeID: employee_id,
+            swipeTimeMillisecond: SwipeTimeMillisecond
+          })
         })
       });
 
