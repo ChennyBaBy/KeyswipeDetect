@@ -25,13 +25,12 @@ try:
     dte = unix_time_millis(datetime.datetime.now())
     #dte = int(round(time.time() * 1000))
     print("dte: {}".format(dte))
-    
+
     if last_id_seen == id and last_time_seen < (dte - 10000):
-		last_time_seen = dte
 		continue
-        
+
     print("Got new id: " + str(id) + ", text: " + text)
-		
+
     #dte = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:')
     last_time_seen = dte
     json = {"employee_id":str(id), "datetime":str(dte) }
@@ -41,12 +40,12 @@ try:
     r = requests.post('http://localhost/swipes',\
       json=json, headers=headers)
     print("HTTP Response code: " + str(r.status_code))
-      
+
     last_id_seen = id
 
     print("status_code: {}".format(r.status_code))
-    
+
     time.sleep(1)
-            
+
 finally:
         GPIO.cleanup()
