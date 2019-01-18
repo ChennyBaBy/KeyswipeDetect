@@ -73,3 +73,6 @@ while True:
             util.dump()
             # We must stop crypto
             util.deauth()
+
+
+            #https://github.com/mxgxw/MFRC522-python
