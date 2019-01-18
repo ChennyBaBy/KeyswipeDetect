@@ -1,5 +1,3 @@
-const {Hidstream} = require('node-hid-stream')
-const HID = require('node-hid')
 var stdin = process.stdin;
 const sqlite3 = require('sqlite3').verbose();
 request = require('request-json');
@@ -7,9 +5,6 @@ var client = request.createClient('http://localhost/');
 
 const spawn = require("child_process").spawn;
 
-console.log(HID.devices())
-
-const hidstream = new Hidstream({ vendorId: 65535, productId: 53 })
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -26,15 +21,15 @@ let swipeData = ''
 const rfidReaderProcess = spawn('python',["./index-RFID.py"]);
 
 // on any data into stdin
-hidstream.on( 'data', function( key ){
+stdin.on( 'data', function( key ){
   // ctrl-c ( end of text )
   console.log('swipeData');
   console.log(swipeData);
-
+  
   if ( key === ';') {
     swipeData = ''
   }
-
+  
   if ( key === '?' ) { //end of the swipe
     // const employeeID = swipeData.substring(0, 6);
 
