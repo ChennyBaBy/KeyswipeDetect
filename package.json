@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "johnny-five": "^1.0.0",
+    "node-hid": "^0.7.6",
     "node-hid-stream": "^1.0.0",
     "raspi-io": "^6.2.0",
     "request": "^2.88.0",
