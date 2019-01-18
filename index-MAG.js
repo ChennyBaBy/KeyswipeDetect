@@ -1,4 +1,4 @@
-const HidStream = require('node-hid-stream').Hidstream
+const {HidStream} = require('node-hid-stream')
 var stdin = process.stdin;
 const sqlite3 = require('sqlite3').verbose();
 request = require('request-json');
