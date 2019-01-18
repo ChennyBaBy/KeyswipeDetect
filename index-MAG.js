@@ -5,8 +5,7 @@ request = require('request-json');
 var client = request.createClient('http://localhost/');
 
 const spawn = require("child_process").spawn;
-
-const hidstream = new Hidstream({ vendorId: 0xffff, productId: 0x0035})
+const hidstream = new Hidstream({ vendorId: 'ffff', productId: '0035'})
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
