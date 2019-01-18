@@ -24,10 +24,10 @@ try:
 
     dte = unix_time_millis(datetime.datetime.now())
     #dte = int(round(time.time() * 1000))
-    print("dte: {}".format(dte))
+    #print("dte: {}".format(dte))
 
-    if last_id_seen == id and last_time_seen < (dte - 10000):
-		continue
+    #if last_id_seen == id and last_time_seen < (dte - 10000):
+	#	continue
 
     print("Got new id: " + str(id) + ", text: " + text)
 
