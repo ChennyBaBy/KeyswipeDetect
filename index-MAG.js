@@ -9,7 +9,7 @@ const spawn = require("child_process").spawn;
 
 console.log(HID.devices())
 
-const hidstream = new Hidstream({ vendorId: 'ffff', productId: '0035'})
+const hidstream = new Hidstream({ vendorId: 65535, productId: 53})
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
