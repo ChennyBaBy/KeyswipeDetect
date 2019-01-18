@@ -3,6 +3,8 @@ const sqlite3 = require('sqlite3').verbose();
 request = require('request-json');
 var client = request.createClient('http://localhost/');
 
+const spawn = require("child_process").spawn;
+
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -16,11 +18,18 @@ stdin.setEncoding( 'utf8' );
 
 let swipeData = ''
 
+const rfidReaderProcess = spawn('python',["./index-RFID.py"]);
+
 // on any data into stdin
 stdin.on( 'data', function( key ){
   // ctrl-c ( end of text )
   console.log('swipeData');
   console.log(swipeData);
+  
+  if ( key === ';') {
+    swipeData = ''
+  }
+  
   if ( key === '?' ) { //end of the swipe
     // const employeeID = swipeData.substring(0, 6);
 
@@ -37,12 +46,11 @@ stdin.on( 'data', function( key ){
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       console.log('Theres a swipe Error!');
       console.log(swipeData)
-      const spawn = require("child_process").spawn;
       const pythonProcess = spawn('python',["./light.py"]);
 
       var data = {
         swipe: {
-          employee_id: swipeData,
+          employee_id: '',
           datetime: SwipeTimeMillisecond
         }
       };
