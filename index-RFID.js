@@ -21,7 +21,8 @@ stdin.on( 'data', function( key ){
   // ctrl-c ( end of text )
   console.log('swipeData');
   console.log(swipeData);
-  if ( key === '?' ) { //end of the swipe
+  console.log(`key: ${key}`);
+  if ( key === '?' || swipeData[swipeData.length-1] === '?') { //end of the swipe
     // const employeeID = swipeData.substring(0, 6);
 
     // console.log(employeeID + ' has swiped at ' + new Date() + '!');
