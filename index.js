@@ -86,8 +86,6 @@ stdin.on( 'data', function( key ){
 
           console.log('here???');
           client.post('swipes/', data, function(err, res, body) {
-            // console.log(res);
-            // console.log(err);
             return console.log(res.statusCode);
             swipeData = '';
           });
