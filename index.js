@@ -40,12 +40,17 @@ stdin.on( 'data', function( key ){
       const spawn = require("child_process").spawn;
       const pythonProcess = spawn('python',["./light.py"]);
 
-      //Post Request bad
-      // request.post('http://localhost/swipes', {
-      //   successfulSwipe: false,
-      //   badData: swipeData,
-      //   swipeTimeMillisecond: SwipeTimeMillisecond
-      // })
+      var data = {
+        swipe: {
+          employee_id: swipeData,
+          datetime: SwipeTimeMillisecond
+        }
+      };
+
+      client.post('swipes/', data, function(err, res, body) {
+        return console.log(res.statusCode);
+        swipeData = '';
+      });
 
       console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
       swipeData = ''
