@@ -17,9 +17,6 @@ rdr = RFID()
 
 epoch = datetime.datetime.utcfromtimestamp(0)
 
-def unix_time_millis(dt):
-    return (dt - epoch).total_seconds() * 1000.0
-
 # Taken from https://github.com/pimylifeup/MFRC522-python
 def uid_to_num(uid):
     n = 0
@@ -27,8 +24,11 @@ def uid_to_num(uid):
         n = n * 256 + i
     return n
 
-last_id_seen = ''
-last_time_seen = 0
+
+def dte():
+    return (datetime.datetime.now() - epoch).total_seconds() * 1000.0
+
+recent_tags = {}
 
 try:
     while True:
@@ -38,21 +38,19 @@ try:
            (error, id) = rdr.anticoll()
            if not error:
                 id = uid_to_num(id)
-                dte = unix_time_millis(datetime.datetime.now())
-    
-                if last_id_seen == id and last_time_seen < (dte - 10000):
-                    continue
-    
-                last_time_seen = dte
+                if recent_tags.get(id, None):
+                    if (dte() - recent_tags[id]) < 5000:
+                        continue
+                    else:
+                        del recent_tags[id]
+
+                recent_tags[id] = dte()
                 json = {"employee_id":str(id)}
-                headers = {'Content-type':'application/json'}
+                headers = {'Content-Type':'application/json', 'Accept': 'application/json'}
                 print("Sending POST request.")
                 print(json)
                 r = requests.post('http://localhost/swipes', json=json, headers=headers)
                 print("HTTP Response code: " + str(r.status_code))
-            
-                last_id_seen = id
-            
                 print("status_code: {}".format(r.status_code))
 
 finally:
