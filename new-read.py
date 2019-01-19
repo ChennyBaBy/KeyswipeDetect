@@ -40,6 +40,7 @@ try:
                 id = uid_to_num(id)
                 if recent_tags.get(id, None):
                     if (dte() - recent_tags[id]) < 5000:
+                        recent_tags[id] = dte()
                         continue
                     else:
                         del recent_tags[id]
